@@ -12,6 +12,7 @@ flask-wtf = "*"
 [dev-packages]
 flake8 = "*"
 autopep8 = "*"
+nose = "*"
 
 [requires]
 python_version = "3.7"
@@ -19,3 +20,4 @@ python_version = "3.7"
 [scripts]
 lint = "flake8 ."
 fix = "autopep8 -ivr ."
+test = "nosetests"
