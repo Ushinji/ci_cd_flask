@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 Flask = "*"
+Flask-Script = "*"
+uWSGI = "*"
+flask-wtf = "*"
 
 [dev-packages]
 flake8 = "*"

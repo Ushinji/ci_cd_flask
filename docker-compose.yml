@@ -2,7 +2,9 @@ version: "3.7"
 services:
   app:
     build: "./"
-    command: "python app.py"
+    command: "python manage.py runserver"
+    environment:
+      RUN_MODE: development
     ports:
       - "5000:5000"
     volumes:
