@@ -1,0 +1,57 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install awscli
+          command: |
+            sudo pip install awscli
+            aws --version
+      - run:
+          name: Push release docker-image
+          command: |
+            $(aws ecr get-login --no-include-email --region ap-northeast-1)
+            docker build -t $CONTAINER_IMAGE:test-$CIRCLE_SHA1 .
+            docker push $CONTAINER_IMAGE:test-$CIRCLE_SHA1
+
+  test:
+    docker:
+      - image: $CONTAINER_IMAGE:test-$CIRCLE_SHA1
+        environment:
+          RUN_MODE: test
+    working_directory: /app
+    steps:
+      - run:
+          name: Run test
+          command: pipenv run test
+  
+  code-check:
+    docker:
+      - image: $CONTAINER_IMAGE:test-$CIRCLE_SHA1
+        environment:
+          RAILS_ENV: test
+    working_directory: /app
+    steps:
+      - run:
+          name: Code check by flake8
+          command:
+            pipenv run lint
+
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - code-check:
+          requires:
+            - build
