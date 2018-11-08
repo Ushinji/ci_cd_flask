@@ -80,3 +80,5 @@ class BaseModel(Model):
 
 
 db = SQLAlchemy(application, model_class=BaseModel)
+
+from .user import User
