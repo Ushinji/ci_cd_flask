@@ -3,5 +3,5 @@ from app import application
 
 
 @application.route('/', methods=['GET'])
-def index():
+def root_page():
     return render_template('session/index.html')
