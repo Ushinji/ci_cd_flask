@@ -47,7 +47,7 @@ $ docker-compose run --rm app pipenv run test
 # nosetest を実行しています。
 ```
 
-# rubocop(linter)
+# linter/formatter
 
 コードをチェック
 
