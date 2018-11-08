@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+
+<a href="/users/new" class="">New User</a>
+{% endblock %}
