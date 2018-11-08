@@ -3,18 +3,65 @@ circle.ciと連携したCI/CDができるFlaskアプリサンプル
 
 # 起動手順
 
+イメージのビルド
+
+```
+$ docker-compose build
+```
+
+pipenv install
+
+```
+$ docker-compose run --rm app pipenv install --dev
+```
 
 DB migration
 
 ```
 # DB create
-docker-compose exec app python migrations/create_database.py
+$ docker-compose run --rm app python migrations/create_database.py
 
 # DB migrate
-docker-compose exec app python manage.py db upgrade
+$ docker-compose run --rm app python manage.py db upgrade
 ```
 
+Start Container
 
+```
+$ docker-compose up -d
+```
+
+http://localhost:5000 にアクセスして、アプリが表示されることを確認。
+
+
+コンテナーの状況を確認
+
+```
+$ docker-compose ps
+```
+
+# テストの実行
+
+```
+$ docker-compose run --rm app pipenv run test
+# nosetest を実行しています。
+```
+
+# rubocop(linter)
+
+コードをチェック
+
+```
+$ docker-compose run --rm app pipenv run lint
+# pipenv flake8 . が実行されています。
+```
+
+自動整形
+
+```
+$ docker-compose run --rm app pipenv run fix
+# autopep8 -ivr . が実行されています。
+```
 
 # CicleCIの設定
 
