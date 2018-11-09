@@ -2,8 +2,10 @@ import os
 from sqlalchemy import create_engine
 
 
+mysql_user = os.getenv('MYSQL_USER', '')
+mysql_host = os.getenv('MYSQL_HOST', '')
 mysql_password = os.getenv('MYSQL_PASSWORD', '')
-mysql_engine = create_engine(f'mysql://root:{mysql_password}@db:3306')
+mysql_engine = create_engine(f'mysql://{mysql_user}:{mysql_password}@{mysql_host}:3306')
 
 # Create Database for development if it did not exist
 db_name_for_development = 'ci_cd_flask_development'

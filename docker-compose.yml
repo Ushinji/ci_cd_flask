@@ -4,7 +4,9 @@ services:
     build: "./"
     command: "python manage.py runserver"
     environment:
+      MYSQL_USER: root
       MYSQL_PASSWORD: cicdflask
+      MYSQL_HOST: db
       RUN_MODE: development
     ports:
       - "5000:5000"
